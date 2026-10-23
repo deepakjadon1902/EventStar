@@ -1,0 +1,200 @@
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/sora/latin-600.css";
+@import "@fontsource/sora/latin-700.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --header-height: 5rem;
+    --event-filters-height: 9.125rem;
+    color: #2a3447;
+    background: #fff;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    margin: 0;
+    min-width: 320px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-ink-900;
+  }
+  h1 {
+    @apply text-4xl font-bold tracking-tight md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl font-semibold tracking-tight md:text-4xl;
+  }
+  h3 {
+    @apply text-lg font-semibold;
+  }
+  p {
+    @apply leading-relaxed;
+  }
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid #2f6bff;
+    outline-offset: 4px;
+  }
+  input,
+  select,
+  textarea {
+    @apply w-full rounded-xl border border-ink-500/70 bg-white px-4 text-base text-ink-900;
+    min-height: 48px;
+  }
+  textarea {
+    @apply py-3;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-ink-500;
+  }
+  input[type="checkbox"] {
+    @apply h-5 w-5 min-h-0 shrink-0 rounded border-line accent-brand-600;
+  }
+  select {
+    padding-right: 2rem;
+  }
+  summary {
+    @apply cursor-pointer;
+  }
+  ::selection {
+    background: #dce8ff;
+    color: #0b1220;
+  }
+}
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 md:py-20;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.16em] text-brand-600;
+  }
+  .button {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-colors duration-150 disabled:cursor-wait disabled:opacity-60;
+  }
+  .button-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .button-secondary {
+    @apply border border-line bg-white text-ink-900 hover:border-brand-100 hover:bg-brand-50;
+  }
+  .button-dark {
+    @apply border border-white/25 bg-white/5 text-white hover:bg-white/10;
+  }
+  .text-link {
+    @apply inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700;
+  }
+  .panel {
+    @apply rounded-2xl border border-line bg-white;
+  }
+  .field-label {
+    @apply mb-2 block text-sm font-medium text-ink-900;
+  }
+  .field-error {
+    @apply mt-2 text-sm text-danger;
+  }
+  .form-hint {
+    @apply mt-2 text-xs leading-relaxed text-ink-500;
+  }
+  .section-heading {
+    @apply mb-8 flex flex-wrap items-end justify-between gap-4;
+  }
+  .section-heading h2 {
+    @apply mt-3;
+  }
+  .page-heading {
+    @apply border-b border-line bg-surface py-12 md:py-16;
+  }
+  .prose-content {
+    @apply max-w-prose space-y-6 text-ink-700;
+  }
+  .prose-content h2 {
+    @apply mb-3 pt-4 text-xl font-semibold;
+  }
+  .prose-content a {
+    @apply text-brand-600 underline underline-offset-4;
+  }
+  .prose-content li {
+    @apply mb-3 leading-relaxed;
+  }
+  .faq-item {
+    @apply border-b border-line py-1;
+  }
+  .faq-item summary {
+    @apply flex min-h-16 list-none items-center justify-between gap-6 py-4 text-sm font-semibold text-ink-900;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary svg {
+    @apply shrink-0 text-ink-500 transition-transform;
+  }
+  .faq-item[open] summary svg {
+    transform: rotate(45deg);
+  }
+  .faq-item p {
+    @apply max-w-prose pb-5 text-sm text-ink-500;
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .date-block {
+    @apply flex w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-surface py-1.5 text-ink-900 sm:w-20;
+  }
+  .event-row {
+    @apply flex min-h-[88px] items-center gap-4 border-b border-line px-1 py-3 transition-colors hover:bg-brand-50/60 sm:gap-6 sm:px-4;
+  }
+  .event-row:last-child {
+    @apply border-b-0;
+  }
+  .event-row:hover .event-arrow {
+    @apply translate-x-1 text-brand-600;
+  }
+  .globe-graphic {
+    filter: drop-shadow(0 0 50px rgb(47 107 255 / 10%));
+  }
+  .fade-in {
+    animation: appear 350ms ease-out both;
+  }
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
