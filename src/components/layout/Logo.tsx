@@ -1,32 +1,26 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { site } from "../../config/site";
 export default function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
     <Link
       to="/"
       aria-label={`${site.name} home`}
-      className="inline-flex shrink-0 items-center gap-3 rounded-md"
+      className={`site-logo ${inverse ? "site-logo-inverse" : ""}`}
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">
-        <svg aria-hidden="true" width="28" height="28" viewBox="0 0 32 32">
-          <path
-            d="m16 1 3.4 11.6L31 16l-11.6 3.4L16 31l-3.4-11.6L1 16l11.6-3.4Z"
-            fill="currentColor"
-          />
-        </svg>
-      </span>
-      <span>
-        <span
-          className={`block font-heading text-xl font-bold tracking-tight ${inverse ? "text-white" : "text-ink-900"}`}
-        >
-          {site.shortName}
-          <span className="text-brand-500">.</span>
-        </span>
-        <span
-          className={`block text-[10px] font-semibold uppercase tracking-[0.2em] ${inverse ? "text-slate-400" : "text-ink-500"}`}
-        >
-          Tech Events
-        </span>
+      <svg aria-hidden="true" viewBox="0 0 40 40" width="37" height="37">
+        <path
+          d="M20 2 24.4 15.6 38 20 24.4 24.4 20 38 15.6 24.4 2 20 15.6 15.6Z"
+          fill="currentColor"
+        />
+        <path
+          d="m30 4 1.4 4.6L36 10l-4.6 1.4L30 16l-1.4-4.6L24 10l4.6-1.4Z"
+          fill="currentColor"
+          opacity=".45"
+        />
+      </svg>
+      <span className="logo-name">
+        NorthStar<span className="logo-period">.</span>
+        <span className="logo-descriptor">TECH EVENTS</span>
       </span>
     </Link>
   );

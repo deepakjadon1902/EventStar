@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "../App";
 const routes = [
-  ["/", "Tech events, tracked"],
+  ["/", "Be where"],
   ["/events", "Tech Events."],
   ["/events/github-universe-2026", "GitHub Universe"],
   ["/events/grace-hopper-celebration-2026", "Grace Hopper Celebration"],

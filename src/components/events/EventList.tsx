@@ -25,7 +25,7 @@ export default function EventList({
           aria-label={format(parseISO(`${month}-01`), "MMMM yyyy")}
           className="mb-8"
         >
-          <div className="sticky top-20 z-10 flex items-center gap-3 border-y border-line bg-surface px-4 py-3 lg:top-[calc(var(--header-height)+var(--event-filters-height))]">
+          <div className="flex items-center gap-3 border-y border-line bg-surface px-4 py-3">
             <h2 className="font-sans text-xs font-semibold uppercase tracking-widest">
               {format(parseISO(`${month}-01`), "MMMM yyyy")}
             </h2>

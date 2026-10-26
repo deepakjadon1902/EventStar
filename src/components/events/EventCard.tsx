@@ -1,34 +1,63 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
+﻿import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { TechEvent } from "../../types/event";
-import { formatDateRange } from "../../lib/events";
-import { categoryLabels } from "../../data/labels";
+import { formatDateRange, isUpcoming } from "../../lib/events";
+import { categoryLabels, formatLabels } from "../../data/labels";
+import { getEventPhoto } from "../../data/event-photos";
+import EventBadges from "./EventBadges";
 export default function EventCard({ event }: { event: TechEvent }) {
+  const photo = getEventPhoto(event);
   return (
     <Link
       to={`/events/${event.slug}`}
-      className="panel group flex h-full flex-col p-6 transition-colors hover:border-brand-100 hover:bg-brand-50/40"
+      className={`event-card group ${event.status === "cancelled" ? "event-card-cancelled" : ""}`}
     >
-      <div className="mb-5 flex items-center justify-between gap-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-ink-500">
-          {formatDateRange(event.startDate, event.endDate)}
-        </span>
-        <ArrowUpRight
-          size={16}
-          className="shrink-0 text-ink-500 group-hover:text-brand-600"
-          aria-hidden="true"
+      <div className="event-card-photo">
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          loading="lazy"
+          decoding="async"
+          width="640"
+          height="420"
         />
+        <span className="photo-format">{formatLabels[event.format]}</span>
+        <span className="photo-caption">{photo.caption}</span>
       </div>
-      <h3 className="mb-3 font-sans text-base leading-6 group-hover:text-brand-600">
-        {event.name}
-      </h3>
-      <p className="mb-5 inline-flex items-start gap-1.5 text-xs text-ink-500">
-        <MapPin className="shrink-0" size={13} aria-hidden="true" />
-        {event.city}
-      </p>
-      <span className="mt-auto text-xs text-ink-500">
-        {event.categories.map((c) => categoryLabels[c]).join(" · ")}
-      </span>
+      <div className="event-card-body">
+        <div className="event-card-categories">
+          {event.categories.slice(0, 2).map((c) => (
+            <span key={c}>{categoryLabels[c]}</span>
+          ))}
+          <EventBadges event={event} />
+        </div>
+        <h3>{event.name}</h3>
+        <p className="card-meta">
+          <CalendarDays size={14} aria-hidden="true" />
+          {formatDateRange(event.startDate, event.endDate)}
+        </p>
+        <p className="card-meta">
+          <MapPin size={14} aria-hidden="true" />
+          {event.city},{" "}
+          {event.country === "United States" ? "USA" : event.country}
+        </p>
+        <div className="event-card-bottom">
+          <span>
+            {event.status === "cancelled" ? (
+              "Event cancelled"
+            ) : !isUpcoming(event) ? (
+              "Explore the archive"
+            ) : event.creatorAccess === "open" ? (
+              <>
+                <span className="status-dot" /> Open to creators
+              </>
+            ) : (
+              "Discover the event"
+            )}
+          </span>
+          <ArrowUpRight size={19} aria-hidden="true" />
+        </div>
+      </div>
     </Link>
   );
 }

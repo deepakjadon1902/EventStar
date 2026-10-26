@@ -35,7 +35,7 @@ export default function QuickFacts({ event }: { event: TechEvent }) {
     },
   ];
   return (
-    <aside className="panel p-6 lg:sticky lg:top-28">
+    <aside className="panel quick-facts p-6 lg:sticky lg:top-28">
       <h2 className="text-lg">Quick facts</h2>
       <dl className="mt-5 divide-y divide-line">
         {facts.map(({ label, value, Icon }) => (

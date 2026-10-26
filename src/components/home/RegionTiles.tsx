@@ -1,53 +1,80 @@
-import { ArrowUpRight, Globe2 } from "lucide-react";
+﻿import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getUpcoming } from "../../lib/events";
-import { regionLabels } from "../../data/labels";
 import { useToday } from "../../hooks/useToday";
 import Container from "../layout/Container";
+const regions = [
+  {
+    id: "usa",
+    label: "USA",
+    description: "From the Valley to the world.",
+    image: "san-francisco.jpg",
+    alt: "The Golden Gate Bridge in San Francisco",
+  },
+  {
+    id: "uk-europe",
+    label: "UK & Europe",
+    description: "Old cities. New perspectives.",
+    image: "london.jpg",
+    alt: "London skyline and the River Thames",
+  },
+  {
+    id: "asia-pacific",
+    label: "Asia-Pacific",
+    description: "Meet the next wave.",
+    image: "singapore.jpg",
+    alt: "The Singapore skyline across Marina Bay",
+  },
+  {
+    id: "middle-east-africa",
+    label: "Middle East & Africa",
+    description: "A world of possibility.",
+    image: "dubai.jpg",
+    alt: "The Dubai skyline",
+  },
+];
 export default function RegionTiles() {
   const upcoming = getUpcoming(useToday());
   return (
-    <section className="section border-y border-line bg-surface">
+    <section className="section regions-section">
       <Container>
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Technology has no borders</p>
-            <h2>Follow your corner of the world.</h2>
+            <p className="eyebrow">GOOD IDEAS TRAVEL</p>
+            <h2>Your next event. Your corner of the world.</h2>
           </div>
-          <p className="max-w-xs text-sm text-ink-500">
-            From San Francisco to Singapore, find the conversations happening
-            near you.
-          </p>
+          <Link className="text-link" to="/events">
+            All destinations <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {Object.entries(regionLabels)
-            .slice(0, 5)
-            .map(([id, label]) => (
-              <Link
-                to={`/events?region=${id}`}
-                key={id}
-                className="panel group flex min-h-40 flex-col p-5 transition-colors hover:border-brand-100"
-              >
-                <div className="mb-6 flex justify-between">
-                  <Globe2
-                    size={26}
-                    strokeWidth={1}
-                    className="text-brand-600"
-                    aria-hidden="true"
-                  />
-                  <ArrowUpRight
-                    className="text-ink-500 group-hover:text-brand-600"
-                    size={16}
-                    aria-hidden="true"
-                  />
-                </div>
-                <h3 className="font-sans text-sm">{label}</h3>
-                <p className="mt-2 text-xs text-ink-500">
-                  {upcoming.filter((e) => e.region === id).length} upcoming
-                  events
-                </p>
-              </Link>
-            ))}
+        <div className="region-grid">
+          {regions.map((region) => (
+            <Link
+              to={`/events?region=${region.id}`}
+              key={region.id}
+              className="region-card"
+            >
+              <img
+                src={`/images/${region.image}`}
+                alt={region.alt}
+                loading="lazy"
+                width="450"
+                height="500"
+              />
+              <div className="region-shade" />
+              <span className="region-count">
+                {upcoming.filter((e) => e.region === region.id).length} upcoming
+                events
+              </span>
+              <div className="region-content">
+                <h3>{region.label}</h3>
+                <p>{region.description}</p>
+              </div>
+              <span className="region-arrow">
+                <ArrowUpRight size={20} aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
         </div>
       </Container>
     </section>

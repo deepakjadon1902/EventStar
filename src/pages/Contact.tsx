@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Container from "../components/layout/Container";
 import Seo from "../components/ui/Seo";
 import ContactForm from "../components/ContactForm";
-import { site } from "../config/site";
 export default function Contact() {
   return (
     <>
@@ -12,15 +11,24 @@ export default function Contact() {
         description="Contact our team with a question, submit a technology event for review, request a correction, or ask about the creator program."
       />
       <div className="page-heading">
-        <Container>
-          <p className="eyebrow">Keep the conversation going</p>
-          <h1 className="mt-4">
-            Let’s connect<span className="text-brand-600">.</span>
-          </h1>
-          <p className="mt-5 max-w-lg text-ink-500">
-            A question, a correction, or an event we should know about? We’d
-            like to hear from you.
-          </p>
+        <Container className="contact-heading-grid">
+          <div>
+            <p className="eyebrow">Keep the conversation going</p>
+            <h1 className="mt-4">
+              Let’s connect<span className="text-brand-600">.</span>
+            </h1>
+            <p className="mt-5 max-w-lg text-ink-500">
+              A question, a correction, or an event we should know about? We’d
+              like to hear from you.
+            </p>
+          </div>
+          <img
+            className="contact-heading-photo"
+            src="/images/oracle-photo.webp"
+            alt="Conversations at Oracle AI World, a previous edition"
+            width="800"
+            height="500"
+          />
         </Container>
       </div>
       <Container className="grid items-start gap-10 py-12 lg:grid-cols-12 lg:gap-16">
@@ -31,12 +39,10 @@ export default function Contact() {
               size={24}
               aria-hidden="true"
             />
-            <h2 className="mb-2 text-lg">Drop us a line</h2>
-            <a href={`mailto:${site.email}`} className="text-link break-all">
-              {site.email}
-            </a>
-            <p className="text-xs text-ink-500">
-              Placeholder address — configure before launch.
+            <h2 className="mb-2 text-lg">A conversation starts here.</h2>
+            <p className="mt-3 text-sm text-ink-500">
+              Have a question about an event or a story you want to tell? Use
+              the form to get in touch with our team.
             </p>
             <p className="mt-4 text-sm text-ink-500">
               We aim to reply within 3 business days.

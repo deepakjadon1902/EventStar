@@ -5,7 +5,7 @@ import Seo from "../components/ui/Seo";
 import ApplyForm from "../components/creators/ApplyForm";
 export default function CreatorApply() {
   return (
-    <div className="bg-surface pb-20">
+    <div className="application-page bg-surface pb-20">
       <Container className="max-w-4xl pt-8">
         <Seo
           title="Apply to cover an event"

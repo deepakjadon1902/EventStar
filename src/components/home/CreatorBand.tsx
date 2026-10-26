@@ -1,55 +1,52 @@
-import { Link } from "react-router-dom";
-import { ArrowUpRight, Check, PenLine } from "lucide-react";
+﻿import { Link } from "react-router-dom";
+import { ArrowUpRight, Check } from "lucide-react";
 import Container from "../layout/Container";
 export default function CreatorBand() {
   return (
-    <section className="section">
+    <section className="section creator-band-section">
       <Container>
-        <div className="relative overflow-hidden rounded-2xl border border-brand-100 bg-brand-50 p-7 md:p-12">
-          <div className="grid gap-8 lg:grid-cols-12">
-            <div className="relative z-10 lg:col-span-7">
-              <p className="eyebrow">Your perspective belongs here</p>
-              <h2 className="mt-4 max-w-lg">
-                Cover the events
-                <br className="hidden md:block" /> that matter.
-              </h2>
-              <p className="mt-5 max-w-lg text-sm text-ink-500">
-                Writers, video creators, podcasters, and photographers: bring
-                your curiosity. We’ll help you take the next step.
-              </p>
-              <Link to="/creators/apply" className="button button-primary mt-7">
-                Apply to cover an event
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
-            </div>
-            <div className="relative z-10 flex flex-col justify-center gap-5 lg:col-span-5">
-              {[
-                "Support requesting event access",
-                "A curated calendar and event briefings",
-                "Opportunities to share your work",
-              ].map((text) => (
-                <p
-                  key={text}
-                  className="flex items-start gap-3 text-sm font-medium text-ink-700"
-                >
-                  <span className="rounded-full border border-brand-100 bg-white p-1 text-brand-600">
-                    <Check size={13} aria-hidden="true" />
-                  </span>
-                  {text}
-                </p>
-              ))}
-              <p className="pl-8 text-xs leading-relaxed text-ink-500">
-                No follower-count gate. Access is always the organizer’s
-                decision.
-              </p>
-            </div>
+        <div className="creator-band">
+          <div className="creator-band-image">
+            <img
+              src="/images/web-summit-community.png"
+              alt="Two attendees capturing a moment together at Web Summit Lisbon 2025"
+              width="1024"
+              height="684"
+              loading="lazy"
+            />
+            <span className="creator-photo-caption">
+              THE PEOPLE MAKE THE STORY. · WEB SUMMIT 2025
+            </span>
           </div>
-          <PenLine
-            className="pointer-events-none absolute -bottom-12 -right-10 text-brand-100/50"
-            strokeWidth={0.5}
-            size={260}
-            aria-hidden="true"
-          />
+          <div className="creator-band-copy">
+            <p className="eyebrow">FOR THE STORYTELLERS</p>
+            <h2>
+              You bring the voice.
+              <br />
+              <span className="heading-emphasis">We’ll help open doors.</span>
+            </h2>
+            <p>
+              Writers. Filmmakers. Podcasters. Photographers. Get closer to the
+              conversations and tell the stories only you can tell.
+            </p>
+            <div className="creator-band-checks">
+              <span>
+                <Check size={15} aria-hidden="true" />
+                Independent voice
+              </span>
+              <span>
+                <Check size={15} aria-hidden="true" />
+                No follower-count gate
+              </span>
+            </div>
+            <Link to="/creators" className="button button-primary">
+              Meet the creator program{" "}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
+            <p className="creator-access-note">
+              We support your application. Organizers decide access.
+            </p>
+          </div>
         </div>
       </Container>
     </section>

@@ -1,12 +1,19 @@
+﻿import { useState } from "react";
 import { format, parseISO } from "date-fns";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, CalendarDays } from "lucide-react";
+import { ArrowUpRight, CalendarDays, LayoutGrid, List } from "lucide-react";
 import Container from "../components/layout/Container";
 import Seo from "../components/ui/Seo";
 import EventList from "../components/events/EventList";
+import EventCard from "../components/events/EventCard";
 import FilterBar from "../components/events/FilterBar";
 import EmptyState from "../components/ui/EmptyState";
-import { filterEvents, getUpcoming, getPast } from "../lib/events";
+import {
+  filterEvents,
+  getUpcoming,
+  getPast,
+  groupByMonth,
+} from "../lib/events";
 import { useEventFilters } from "../hooks/useEventFilters";
 import { useToday } from "../hooks/useToday";
 import { lastVerified } from "../data";
@@ -14,6 +21,7 @@ import ExternalLink from "../components/ui/ExternalLink";
 export default function Events() {
   const today = useToday();
   const { filters, update, clear, activeCount } = useEventFilters();
+  const [layout, setLayout] = useState<"grid" | "list">("grid");
   const upcoming = getUpcoming(today),
     past = getPast(today);
   const items = filterEvents(
@@ -24,27 +32,37 @@ export default function Events() {
     <>
       <Seo
         title="Tech Events"
-        description="Browse upcoming and past technology events. Filter by region, category, format, and creator opportunities to find the right event for you."
+        description="Find your next technology event. Browse the global calendar by interest, destination, format, and creator opportunities."
       />
-      <div className="page-heading">
-        <Container>
-          <p className="eyebrow">Your global technology calendar</p>
-          <h1 className="mt-4">
-            Tech Events<span className="text-brand-600">.</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-ink-500">
-            Find the gatherings that move technology forward.
-            <br className="hidden sm:block" />
-            One independent calendar, from the USA to the world.
-          </p>
+      <section className="directory-hero">
+        <Container className="directory-hero-inner">
+          <div>
+            <p className="eyebrow">
+              <span className="status-dot" />
+              THE WORLD IS GETTING TOGETHER
+            </p>
+            <h1>
+              Tech Events<span className="text-brand-600">.</span>
+            </h1>
+            <p>
+              Find the rooms where ideas become what’s next.
+              <br />
+              Your independent guide to technology gatherings, worldwide.
+            </p>
+          </div>
+          <div className="directory-photo">
+            <img
+              src="/images/aws-community.png"
+              alt="Technology professionals learning at AWS re:Invent"
+              width="800"
+              height="450"
+            />
+            <span>REAL CONNECTIONS. · AWS RE:INVENT, PREVIOUS EDITION</span>
+          </div>
         </Container>
-      </div>
+      </section>
       <Container>
-        <div
-          className="mt-7 flex gap-8"
-          role="tablist"
-          aria-label="Event dates"
-        >
+        <div className="directory-tabs" role="tablist" aria-label="Event dates">
           {[
             { view: "upcoming", label: "Upcoming", count: upcoming.length },
             { view: "past", label: "Past events", count: past.length },
@@ -56,6 +74,7 @@ export default function Events() {
               aria-controls="event-results"
               tabIndex={filters.view === tab.view ? 0 : -1}
               key={tab.view}
+              onClick={() => update("view", tab.view)}
               onKeyDown={(e) => {
                 if (
                   ["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)
@@ -73,15 +92,9 @@ export default function Events() {
                   document.getElementById(`tab-${view}`)?.focus();
                 }
               }}
-              onClick={() => update("view", tab.view)}
-              className={`flex min-h-14 items-center gap-2 border-b-2 text-sm font-semibold ${filters.view === tab.view ? "border-brand-600 text-brand-600" : "border-transparent text-ink-500 hover:text-ink-900"}`}
             >
               {tab.label}
-              <span
-                className={`rounded-md px-2 py-0.5 text-xs ${filters.view === tab.view ? "bg-brand-50" : "bg-surface"}`}
-              >
-                {tab.count}
-              </span>
+              <span>{tab.count}</span>
             </button>
           ))}
         </div>
@@ -91,19 +104,37 @@ export default function Events() {
           clear={clear}
           activeCount={activeCount}
         />
-        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-xs text-ink-500">
+        <div className="results-toolbar">
           <p aria-live="polite" aria-atomic="true">
             Showing{" "}
-            <strong className="font-semibold text-ink-700">
-              {items.length}
-            </strong>{" "}
+            <strong className="font-medium text-ink-900">{items.length}</strong>{" "}
             {items.length === 1 ? "event" : "events"}
-            {activeCount > 0 ? " matching your filters" : ""}
+            {activeCount > 0
+              ? " matching your filters"
+              : ". Find your kind of gathering."}
           </p>
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarDays size={13} aria-hidden="true" />
-            {filters.view === "past" ? "Most recent first" : "Soonest first"}
-          </span>
+          <div className="results-controls">
+            <span className="results-sort inline-flex items-center gap-1.5">
+              <CalendarDays size={13} aria-hidden="true" />
+              {filters.view === "past" ? "Most recent first" : "Soonest first"}
+            </span>
+            <div className="view-toggle" role="group" aria-label="Event layout">
+              <button
+                onClick={() => setLayout("grid")}
+                aria-pressed={layout === "grid"}
+                aria-label="Grid view"
+              >
+                <LayoutGrid size={15} aria-hidden="true" />
+              </button>
+              <button
+                onClick={() => setLayout("list")}
+                aria-pressed={layout === "list"}
+                aria-label="List view"
+              >
+                <List size={17} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
         </div>
         <div
           id="event-results"
@@ -111,20 +142,42 @@ export default function Events() {
           aria-labelledby={`tab-${filters.view}`}
           tabIndex={0}
         >
-          {items.length ? (
+          {!items.length ? (
+            <EmptyState onClear={clear} />
+          ) : layout === "list" ? (
             <EventList events={items} />
           ) : (
-            <EmptyState onClear={clear} />
+            Object.entries(groupByMonth(items)).map(([month, events]) => (
+              <section
+                key={month}
+                className="event-month"
+                aria-label={format(parseISO(`${month}-01`), "MMMM yyyy")}
+              >
+                <div className="event-month-heading">
+                  <h2>{format(parseISO(`${month}-01`), "MMMM yyyy")}</h2>
+                  <span>
+                    {events.length} {events.length === 1 ? "event" : "events"}
+                  </span>
+                </div>
+                <div className="event-card-grid">
+                  {events.map((event) => (
+                    <EventCard key={event.id} event={event} />
+                  ))}
+                </div>
+              </section>
+            ))
           )}
         </div>
-        <div className="mb-16 mt-8 rounded-xl border border-line bg-surface p-5">
-          <p className="text-xs leading-relaxed text-ink-500">
-            Event data compiled from organizers’ public information and industry
-            calendars. Last verified:{" "}
+        <div className="directory-source-note">
+          <p>
+            Independently curated from organizers’ public information. Last
+            verified:{" "}
             <time dateTime={lastVerified}>
               {format(parseISO(lastVerified), "MMM d, yyyy")}
             </time>
-            . Dates and availability may change.
+            . Confirm the latest dates and availability with the organizer.
+            Photography may show previous editions; regional city views are
+            labelled.
           </p>
           <div className="mt-2 flex flex-wrap gap-x-6">
             <ExternalLink
@@ -134,7 +187,7 @@ export default function Events() {
               Source calendar
             </ExternalLink>
             <Link to="/contact?topic=event" className="text-link text-xs">
-              Organizer? Submit your event for review
+              Add your event to the conversation{" "}
               <ArrowUpRight size={14} aria-hidden="true" />
             </Link>
           </div>

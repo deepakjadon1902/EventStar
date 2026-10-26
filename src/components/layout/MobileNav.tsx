@@ -30,8 +30,10 @@ const groups = [
 ];
 export default function MobileNav({
   dialogRef,
+  onClose,
 }: {
   dialogRef: RefObject<HTMLDialogElement>;
+  onClose?: () => void;
 }) {
   const previousOverflow = useRef("");
   useEffect(() => {
@@ -52,6 +54,8 @@ export default function MobileNav({
   return (
     <dialog
       ref={dialogRef}
+      id="mobile-navigation"
+      onClose={onClose}
       aria-label="Navigation"
       className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none bg-white p-0 backdrop:bg-ink-900/30"
     >

@@ -9,6 +9,7 @@ const pages = [
   "/events",
   "/creators",
   "/about",
+  "/photo-credits",
   "/contact",
   "/legal/terms",
   "/legal/privacy",

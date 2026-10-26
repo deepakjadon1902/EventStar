@@ -11,6 +11,7 @@ const CreatorApply = lazy(() => import("./pages/CreatorApply"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Legal = lazy(() => import("./pages/legal/Legal"));
+const PhotoCredits = lazy(() => import("./pages/PhotoCredits"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 export default function App() {
   const { pathname, hash } = useLocation();
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/events/:slug" element={<EventDetail />} />
             <Route path="/creators" element={<Creators />} />
             <Route path="/creators/apply" element={<CreatorApply />} />
+            <Route path="/photo-credits" element={<PhotoCredits />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/legal/:document" element={<Legal />} />

@@ -11,7 +11,7 @@ export default function Legal() {
   const page = legalDocuments[document || ""];
   if (!page) return <NotFound />;
   return (
-    <Container className="max-w-4xl py-10 md:py-16">
+    <Container className="legal-page max-w-4xl py-10 md:py-16">
       <Seo title={page.title} description={page.intro} />
       <Link to="/" className="text-link mb-7 text-xs">
         <ArrowLeft size={14} aria-hidden="true" />

@@ -14,10 +14,7 @@ export default function FilterBar({
   activeCount,
 }: Props) {
   return (
-    <div
-      id="region-filters"
-      className="border-y border-line bg-white py-5 lg:sticky lg:top-20 lg:z-20"
-    >
+    <div id="region-filters" className="filter-bar">
       <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-[minmax(200px,1.5fr)_1fr_1fr_1fr]">
         <div className="relative">
           <label htmlFor="event-search" className="sr-only">

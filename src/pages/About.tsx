@@ -34,17 +34,26 @@ export default function About() {
         description="Established in 2000, our team tracks technology events worldwide and connects independent creators with opportunities to cover them."
       />
       <section className="page-heading">
-        <Container>
-          <p className="eyebrow">Independent since {site.foundedYear}</p>
-          <h1 className="mt-4 max-w-3xl">
-            Technology moves fast.
-            <br />
-            We keep our bearings.
-          </h1>
-          <p className="mt-6 max-w-xl text-base text-ink-500">
-            A clear view of where the industry gathers — and a place for the
-            people who tell its stories.
-          </p>
+        <Container className="about-heading-grid">
+          <div>
+            <p className="eyebrow">Independent since {site.foundedYear}</p>
+            <h1 className="mt-4 max-w-3xl">
+              Technology moves fast.
+              <br />
+              We keep our bearings.
+            </h1>
+            <p className="mt-6 max-w-xl text-base text-ink-500">
+              A clear view of where the industry gathers — and a place for the
+              people who tell its stories.
+            </p>
+          </div>
+          <img
+            className="about-heading-photo"
+            src="/images/aws-community.png"
+            alt="Attendees learning at AWS re:Invent, a previous edition"
+            width="800"
+            height="550"
+          />
         </Container>
       </section>
       <section className="section">

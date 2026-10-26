@@ -37,7 +37,7 @@ export default function PitchHelper() {
         readOnly
         value={template}
         rows={9}
-        className="bg-surface text-xs leading-6"
+        className="bg-surface text-sm leading-7"
       />
       <p className="form-hint" aria-live="polite">
         {status}

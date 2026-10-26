@@ -1,59 +1,64 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, PenLine } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Container from "../layout/Container";
 export default function CreatorHero() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   return (
-    <section className="hero-grid overflow-hidden bg-ink-900 py-16 md:py-20">
-      <Container className="relative">
-        <p className="eyebrow !text-[#A7C1FF]">The creator program</p>
-        <h1 className="relative z-10 mt-6 max-w-3xl text-4xl leading-tight text-white md:text-[56px]">
-          Cover tech events
-          <br />
-          with us<span className="text-[#8AAEFF]">.</span>
-        </h1>
-        <p className="relative z-10 mt-6 max-w-xl text-base text-slate-300">
-          We invite creators to cover the events that shape technology. Bring
-          your perspective, keep your independence, and tell a story worth
-          following.
-        </p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate(
-              `/creators/apply${email ? `?email=${encodeURIComponent(email)}` : ""}`,
-            );
-          }}
-          className="relative z-10 mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"
-        >
-          <label htmlFor="creator-email" className="sr-only">
-            Email address to start your application
-          </label>
-          <input
-            id="creator-email"
-            type="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email address"
-            className="min-w-0 flex-1"
+    <section className="creator-page-hero">
+      <Container className="creator-hero-layout">
+        <div className="creator-hero-copy">
+          <p className="eyebrow">
+            <span className="status-dot" />
+            THE NORTHSTAR CREATOR PROGRAM
+          </p>
+          <h1>
+            Cover tech events.
+            <br />
+            <span className="heading-emphasis">Tell your kind of story.</span>
+          </h1>
+          <p>
+            Get closer to the ideas, people, and moments that matter. Bring your
+            perspective. Keep your independence. Make something worth sharing.
+          </p>
+          <form
+            className="creator-start-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(
+                `/creators/apply${email ? `?email=${encodeURIComponent(email)}` : ""}`,
+              );
+            }}
+          >
+            <label htmlFor="creator-email" className="sr-only">
+              Email address to start your application
+            </label>
+            <input
+              id="creator-email"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email address"
+            />
+            <button type="submit" className="button button-primary">
+              Start application <ArrowUpRight size={16} aria-hidden="true" />
+            </button>
+          </form>
+          <p className="creator-form-note">
+            Your work matters more than your follower count. Come as you are.
+          </p>
+        </div>
+        <div className="creator-hero-image">
+          <img
+            src="/images/web-summit-community.png"
+            alt="Creators sharing a moment at Web Summit Lisbon 2025"
+            width="1024"
+            height="684"
           />
-          <button type="submit" className="button button-primary">
-            Start application
-            <ArrowRight size={17} aria-hidden="true" />
-          </button>
-        </form>
-        <p className="relative z-10 mt-4 text-xs text-slate-400">
-          No follower-count gate. An active public channel is enough to apply.
-        </p>
-        <PenLine
-          className="pointer-events-none absolute -right-10 top-6 hidden text-white/[.06] md:block"
-          size={300}
-          strokeWidth={0.5}
-          aria-hidden="true"
-        />
+          <span>WEB SUMMIT LISBON · 2025 EDITION</span>
+        </div>
       </Container>
     </section>
   );
