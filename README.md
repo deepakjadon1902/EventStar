@@ -44,3 +44,4 @@ The interface uses native selects and checkboxes, a modal mobile navigation dial
 ## Dependency constraints
 
 The requested Router v6 and Tailwind v3 are retained. Router v6 currently has upstream moderate advisories whose published fixes require v7; this app uses fixed internal navigation targets, URL-encoded search values, and no SSR hydration. Tailwind v3 also retains build-tool dependency advisories. Build inputs are local source files. Do not feed untrusted navigation destinations or build patterns into these APIs. Review dependency updates before a public launch.
+# EventStar
